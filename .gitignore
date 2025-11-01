@@ -21,7 +21,8 @@ __pycache__/
 # DB / runtime files
 db.sqlite3
 raw_logs.txt
+db.sqlite3.bak
 
 # OS
 .DS_Store
-thumbs.db
+thumbs.dbdb.sqlite3.bak
