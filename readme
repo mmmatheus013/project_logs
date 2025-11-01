@@ -36,8 +36,29 @@ raw_logs.txt	Arquivo onde todos os logs brutos são anexados.
 logs/app.log	Logs internos da aplicação (configurados via LOGGING).
 .env	Variáveis de ambiente para configuração em tempo de execução.
 build.sh	Script para preparar o ambiente (venv, dependências, migrações).
-scripts/	Contém scripts auxiliares: upload_files.py, generate_complex_log.py, generate_visits.py.
+scripts/	Contém scripts auxiliares: upload_files.py, generate_complex_log.py.
 
+Gerar arquivos de teste — `scripts/generate_complex_log.py`
+- Finalidade: criar arquivos de log grandes e variados para teste de upload e ingestão.
+- Formato: linhas estilo combined log + campo `uid=UUID`.
+- Parâmetros principais:
+  - `--count, -n` — número de linhas (padrão: 100000)
+  - `--output, -o` — caminho do arquivo de saída (ex.: `test-files/complex_log.txt`)
+  - `--start, -s` — timestamp ISO inicial (opcional)
+- Exemplo:
+```bash
+# gera 200k linhas
+./venv/bin/python scripts/generate_complex_log.py --count 200000 --output test-files/complex_log.txt
+
+# gera 50k linhas com timestamp inicial
+./venv/bin/python scripts/generate_complex_log.py -n 50000 -o test-files/complex_50k.txt -s 2025-10-31T12:00:00
+```
+- Uso recomendado:
+  1. Gerar arquivo em `test-files/`.
+  2. Usar `scripts/upload_files.py` (com `DIRECTORIES` apontando para `test-files`) para enviar ao endpoint.
+  3. Verificar `raw_logs.txt` e o banco.
+
+  
 🛠️ Instalação e Configuração
 
 1. Clonar Repositório (Opcional)
