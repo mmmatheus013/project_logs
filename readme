@@ -1,77 +1,117 @@
-# Logs Project — README
+🚀 Logs Project
 
-Resumo
-- Projeto Django que expõe um endpoint `/logs/upload/` que recebe um arquivo, separa por linhas e grava:
-  - em `raw_logs.txt` (append)
-  - no banco de dados (modelo `logs.Log`) em batches (bulk_create)
-- Scripts auxiliares:
-  - `scripts/upload_files.py` — envia arquivos listados em `.env` para o endpoint.
-  - `scripts/generate_complex_log.py` — gera arquivos de log complexos (para teste).
-  - `scripts/generate_visits.py` — gera tráfego HTTP para um alvo.
-- `build.sh` — prepara venv, instala dependências e aplica migrações.
+✨ Visão Geral
 
-Pré-requisitos
-- Linux
-- Python 3.10+ (o ambiente do projeto usa Python 3.12)
-- Git (opcional)
-- `sudo` para monitorar logs do nginx, se aplicável
+Projeto Django desenvolvido para ingestão e processamento eficiente de arquivos de log. Ele expõe um endpoint dedicado para o upload de arquivos, realizando o processamento das linhas e persistência dos dados em formato bruto e estruturado.
 
-Estrutura principal
-- `manage.py` — Django
-- `core/settings.py` — settings do projeto
-- `logs/` — app Django (models, views, urls)
-- `raw_logs.txt` — arquivo onde uploads são anexados
-- `logs/app.log` — arquivo de logs da aplicação (conforme LOGGING)
-- `scripts/`:
-  - `upload_files.py`
-  - `generate_complex_log.py`
-  - `generate_visits.py`
-- `.env` — configurações de runtime
-- `build.sh` — script de build
+💡 Funcionalidades Principais
 
-Configurar .env
-- Exemplo mínimo (arquivo: `logs/.env`):
-  ```
-  API_URL=http://127.0.0.1:8000/logs/upload/
-  DIRECTORIES="/logs/test-files"
-  AUTH_TOKEN=
-  SKIP_EXTENSIONS=.tmp,.lock
-  DELAY_SECONDS=0.2
+Recurso	Descrição
+Endpoint de Upload	/logs/upload/ aceita um arquivo de log via requisição POST.
+Persistência Bruta	As linhas do arquivo são anexadas diretamente a raw_logs.txt.
+Persistência Estruturada	As linhas são gravadas no banco de dados (modelo logs.Log) usando bulk_create para alta performance.
+Geração de Logs	Scripts auxiliares para simular logs complexos (scripts/generate_complex_log.py) e tráfego HTTP (scripts/generate_visits.py).
+Automação	Script scripts/upload_files.py para envio automatizado de arquivos de log.
 
-  TARGET_URL=http://127.0.0.1
-  TARGET_PATHS=/,/status,health
-  CONCURRENCY=2
-  RPS=5
-  DURATION_SECONDS=30
-  ```
+⚙️ Pré-requisitos
 
-Build / preparar ambiente
+Certifique-se de ter os seguintes componentes instalados:
 
-  cd "/logs"
-  python3 -m venv venv
-  source venv/bin/activate
-  pip install --upgrade pip
-  pip install -r requirements.txt
-  python manage.py makemigrations
-  python manage.py migrate
-  ```
+    Sistema Operacional: Linux (preferencialmente, para monitoramento de logs Nginx)
 
-Executar servidor Django (local)
-```bash
-cd "/home/mmm/Área de trabalho/Projects/logs"
+    Python: Versão 3.10+ (o ambiente de desenvolvimento utiliza Python 3.12)
+
+    Git (Opcional, para clonagem)
+
+    sudo (Para monitorar logs do Nginx, se aplicável)
+
+📂 Estrutura do Projeto
+
+Abaixo estão os principais arquivos e diretórios:
+Caminho	Descrição
+manage.py	Interface de linha de comando padrão do Django.
+core/settings.py	Configurações gerais do projeto Django.
+logs/	Aplicação principal do Django (models, views, urls, etc.).
+raw_logs.txt	Arquivo onde todos os logs brutos são anexados.
+logs/app.log	Logs internos da aplicação (configurados via LOGGING).
+.env	Variáveis de ambiente para configuração em tempo de execução.
+build.sh	Script para preparar o ambiente (venv, dependências, migrações).
+scripts/	Contém scripts auxiliares: upload_files.py, generate_complex_log.py, generate_visits.py.
+
+🛠️ Instalação e Configuração
+
+1. Clonar Repositório (Opcional)
+
+Bash
+
+git clone <URL_DO_SEU_REPO>
+cd logs
+
+2. Configurar o .env
+
+Crie um arquivo .env na raiz do projeto (/logs/.env) com as seguintes variáveis.
+
+    Exemplo Mínimo de .env:
+
+Snippet de código
+
+# Configurações para scripts/upload_files.py
+API_URL=http://127.0.0.1:8000/logs/upload/  # Endpoint de upload
+DIRECTORIES="/home/mmm/Área de trabalho/Projects/logs/test-files" # Caminho para arquivos a serem enviados
+AUTH_TOKEN=                                # Token de autenticação (se necessário)
+SKIP_EXTENSIONS=.tmp,.lock                 # Extensões a ignorar
+DELAY_SECONDS=0.2                          # Intervalo entre uploads
+
+# Configurações para scripts/generate_visits.py
+TARGET_URL=http://127.0.0.1
+TARGET_PATHS=/,/status,health
+CONCURRENCY=2
+RPS=5
+DURATION_SECONDS=30
+
+3. Build do Ambiente
+
+O script build.sh automatiza a criação do ambiente virtual, a instalação das dependências e a aplicação das migrações.
+Bash
+
+# Executar o script build
+./build.sh
+
+# Se preferir fazer manualmente:
+# cd "/logs"
+# python3 -m venv venv
+# source venv/bin/activate
+# pip install --upgrade pip
+# pip install -r requirements.txt
+# python manage.py makemigrations
+# python manage.py migrate
+
+▶️ Como Executar
+
+1. Iniciar o Servidor Django
+
+Ative o ambiente virtual e inicie o servidor:
+Bash
+
+cd <CAMINHO_DO_PROJETO> # Ex: /home/mmm/Área de trabalho/Projects/logs
 source venv/bin/activate
 python manage.py runserver 127.0.0.1:8000
-```
 
+2. Fluxo Completo de Upload (Resumo)
 
+Este é o fluxo típico para testar a ingestão de logs:
 
+    Preparar Arquivos: Coloque os arquivos de log que você deseja testar no diretório configurado em DIRECTORIES (ex: test-files/). Você pode usar o scripts/generate_complex_log.py para criar arquivos de teste.
 
-Fluxo completo (resumido)
-1. Preparar `.env` com `DIRECTORIES` apontando para `/home/mmm/Área de trabalho/Projects/logs/test-files`.
-2. `./build.sh` (ou criar/ativar venv e instalar dependências).
-3. `python manage.py runserver 127.0.0.1:8000`
-4. Gerar/colocar arquivos em `test-files/`.
-5. `./venv/bin/python scripts/upload_files.py` → envia cada arquivo ao endpoint.
-6. Endpoint processa arquivo, grava linhas em `raw_logs.txt` e insere no banco em batches.
-7. Verificar `logs/app.log`, `raw_logs.txt` e o banco.
+    Executar o Upload:
+    Bash
 
+./venv/bin/python scripts/upload_files.py
+
+Verificar: Após a execução, confira:
+
+    raw_logs.txt (os logs brutos anexados).
+
+    logs/app.log (logs internos de processamento).
+
+    O banco de dados (para as entradas estruturadas no modelo logs.Log).
