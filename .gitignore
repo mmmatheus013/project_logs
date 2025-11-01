@@ -1,0 +1,27 @@
+# dotenv local
+.env
+.env.local
+.env.*.local
+
+# virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# DB / runtime files
+db.sqlite3
+raw_logs.txt
+
+# OS
+.DS_Store
+thumbs.db

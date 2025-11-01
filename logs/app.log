@@ -1,0 +1,20 @@
+2025-11-01 00:35:47,283 [INFO] logs: Upload processed: created=0 raw_file=/home/mmm/Área de trabalho/Projects/logs/raw_logs.txt client=127.0.0.1
+2025-11-01 00:35:47,284 [INFO] django.server: "POST /logs/upload/ HTTP/1.1" 201 14
+2025-11-01 00:37:12,306 [INFO] logs: Upload processed: created=0 raw_file=/home/mmm/Área de trabalho/Projects/logs/raw_logs.txt client=127.0.0.1
+2025-11-01 00:37:12,306 [INFO] django.server: "POST /logs/upload/ HTTP/1.1" 201 14
+2025-11-01 00:37:56,638 [INFO] logs: Upload processed: created=100000 raw_file=/home/mmm/Área de trabalho/Projects/logs/raw_logs.txt client=127.0.0.1
+2025-11-01 00:37:56,641 [INFO] django.server: "POST /logs/upload/ HTTP/1.1" 201 19
+2025-11-01 00:40:58,505 [INFO] logs: Upload processed: created=100000 raw_file=/home/mmm/Área de trabalho/Projects/logs/raw_logs.txt client=127.0.0.1
+2025-11-01 00:40:58,508 [INFO] django.server: "POST /logs/upload/ HTTP/1.1" 201 19
+2025-11-01 00:50:00,211 [INFO] logs: Upload processed: created=100000 raw_file=/home/mmm/Área de trabalho/Projects/logs/raw_logs.txt client=127.0.0.1
+2025-11-01 00:50:00,214 [INFO] django.server: "POST /logs/upload/ HTTP/1.1" 201 19
+2025-11-01 00:55:17,179 [INFO] django.utils.autoreload: /home/mmm/Área de trabalho/Projects/logs/logs/views.py changed, reloading.
+2025-11-01 00:55:17,420 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-11-01 00:55:48,067 [INFO] logs: Upload processed: created=100000 raw_file=/home/mmm/Área de trabalho/Projects/logs/raw_logs.txt client=127.0.0.1
+2025-11-01 00:55:48,071 [INFO] django.server: "POST /logs/upload/ HTTP/1.1" 201 19
+2025-11-01 01:06:22,081 [INFO] django.utils.autoreload: /home/mmm/Área de trabalho/Projects/logs/logs/views.py changed, reloading.
+2025-11-01 01:06:22,286 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-11-01 01:06:29,399 [INFO] django.utils.autoreload: /home/mmm/Área de trabalho/Projects/logs/logs/views.py changed, reloading.
+2025-11-01 01:06:29,598 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-11-01 01:06:45,733 [INFO] django.utils.autoreload: /home/mmm/Área de trabalho/Projects/logs/logs/views.py changed, reloading.
+2025-11-01 01:06:45,927 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

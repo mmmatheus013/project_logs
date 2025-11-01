@@ -1,0 +1,77 @@
+# Logs Project — README
+
+Resumo
+- Projeto Django que expõe um endpoint `/logs/upload/` que recebe um arquivo, separa por linhas e grava:
+  - em `raw_logs.txt` (append)
+  - no banco de dados (modelo `logs.Log`) em batches (bulk_create)
+- Scripts auxiliares:
+  - `scripts/upload_files.py` — envia arquivos listados em `.env` para o endpoint.
+  - `scripts/generate_complex_log.py` — gera arquivos de log complexos (para teste).
+  - `scripts/generate_visits.py` — gera tráfego HTTP para um alvo.
+- `build.sh` — prepara venv, instala dependências e aplica migrações.
+
+Pré-requisitos
+- Linux
+- Python 3.10+ (o ambiente do projeto usa Python 3.12)
+- Git (opcional)
+- `sudo` para monitorar logs do nginx, se aplicável
+
+Estrutura principal
+- `manage.py` — Django
+- `core/settings.py` — settings do projeto
+- `logs/` — app Django (models, views, urls)
+- `raw_logs.txt` — arquivo onde uploads são anexados
+- `logs/app.log` — arquivo de logs da aplicação (conforme LOGGING)
+- `scripts/`:
+  - `upload_files.py`
+  - `generate_complex_log.py`
+  - `generate_visits.py`
+- `.env` — configurações de runtime
+- `build.sh` — script de build
+
+Configurar .env
+- Exemplo mínimo (arquivo: `logs/.env`):
+  ```
+  API_URL=http://127.0.0.1:8000/logs/upload/
+  DIRECTORIES="/logs/test-files"
+  AUTH_TOKEN=
+  SKIP_EXTENSIONS=.tmp,.lock
+  DELAY_SECONDS=0.2
+
+  TARGET_URL=http://127.0.0.1
+  TARGET_PATHS=/,/status,health
+  CONCURRENCY=2
+  RPS=5
+  DURATION_SECONDS=30
+  ```
+
+Build / preparar ambiente
+
+  cd "/logs"
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install --upgrade pip
+  pip install -r requirements.txt
+  python manage.py makemigrations
+  python manage.py migrate
+  ```
+
+Executar servidor Django (local)
+```bash
+cd "/home/mmm/Área de trabalho/Projects/logs"
+source venv/bin/activate
+python manage.py runserver 127.0.0.1:8000
+```
+
+
+
+
+Fluxo completo (resumido)
+1. Preparar `.env` com `DIRECTORIES` apontando para `/home/mmm/Área de trabalho/Projects/logs/test-files`.
+2. `./build.sh` (ou criar/ativar venv e instalar dependências).
+3. `python manage.py runserver 127.0.0.1:8000`
+4. Gerar/colocar arquivos em `test-files/`.
+5. `./venv/bin/python scripts/upload_files.py` → envia cada arquivo ao endpoint.
+6. Endpoint processa arquivo, grava linhas em `raw_logs.txt` e insere no banco em batches.
+7. Verificar `logs/app.log`, `raw_logs.txt` e o banco.
+
