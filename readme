@@ -62,12 +62,7 @@ AUTH_TOKEN=                                # Token de autenticação (se necess�
 SKIP_EXTENSIONS=.tmp,.lock                 # Extensões a ignorar
 DELAY_SECONDS=0.2                          # Intervalo entre uploads
 
-# Configurações para scripts/generate_visits.py
-TARGET_URL=http://127.0.0.1
-TARGET_PATHS=/,/status,health
-CONCURRENCY=2
-RPS=5
-DURATION_SECONDS=30
+
 
 3. Build do Ambiente
 
@@ -93,7 +88,7 @@ Bash
 Ative o ambiente virtual e inicie o servidor:
 Bash
 
-cd <CAMINHO_DO_PROJETO> # Ex: /home/mmm/Área de trabalho/Projects/logs
+cd <CAMINHO_DO_PROJETO> # Ex: /logs
 source venv/bin/activate
 python manage.py runserver 127.0.0.1:8000
 
